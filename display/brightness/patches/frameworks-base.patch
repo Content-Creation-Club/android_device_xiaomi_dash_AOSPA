@@ -1293,7 +1293,7 @@ index e38c2c58f453..950a5312deca 100644
  
              if (shouldBeAnimating != mAwaitingCallback) {
 diff --git a/services/core/java/com/android/server/display/brightness/clamper/BrightnessClamperController.java b/services/core/java/com/android/server/display/brightness/clamper/BrightnessClamperController.java
-index 22e43c482e22..0c1dbc1f20f5 100644
+index 22e43c482e22..3e1628910063 100644
 --- a/services/core/java/com/android/server/display/brightness/clamper/BrightnessClamperController.java
 +++ b/services/core/java/com/android/server/display/brightness/clamper/BrightnessClamperController.java
 @@ -89,6 +89,39 @@ public class BrightnessClamperController {
@@ -1336,7 +1336,7 @@ index 22e43c482e22..0c1dbc1f20f5 100644
  
      public BrightnessClamperController(Handler handler,
              ClamperChangeListener clamperChangeListener, DisplayDeviceData data, Context context,
-@@ -179,6 +212,24 @@ public class BrightnessClamperController {
+@@ -179,6 +212,26 @@ public class BrightnessClamperController {
              mModifiers.get(i).apply(request, builder);
          }
  
@@ -1347,6 +1347,8 @@ index 22e43c482e22..0c1dbc1f20f5 100644
 +            builder.setBrightnessMaxReason(mDeviceThermalCap < mDeviceSdrCap
 +                    ? BrightnessInfo.BRIGHTNESS_MAX_REASON_THERMAL
 +                    : BrightnessInfo.BRIGHTNESS_MAX_REASON_NONE);
++        }
++        if (builder.getBrightness() > deviceMax) {
 +            builder.getBrightnessReason().addModifier(
 +                    com.android.server.display.brightness.BrightnessReason.MODIFIER_THROTTLED);
 +        }
@@ -1361,7 +1363,16 @@ index 22e43c482e22..0c1dbc1f20f5 100644
          return builder.build();
      }
  
-@@ -233,6 +284,17 @@ public class BrightnessClamperController {
+@@ -195,6 +248,8 @@ public class BrightnessClamperController {
+     public void dump(PrintWriter writer) {
+         writer.println("BrightnessClamperController:");
+         IndentingPrintWriter ipw = new IndentingPrintWriter(writer, "    ");
++        ipw.println("deviceCaps: thermal=" + mDeviceThermalCap + " sdr=" + mDeviceSdrCap
++                + " hdr=" + mDeviceHdrCap + " configured=" + mDeviceCapsConfigured);
+         mLightSensorController.dump(ipw);
+         mModifiers.forEach(modifier -> modifier.dump(ipw));
+     }
+@@ -233,6 +288,17 @@ public class BrightnessClamperController {
      private void recalculateModifiersState() {
          ModifiersAggregatedState newAggregatedState = new ModifiersAggregatedState();
          mStatefulModifiers.forEach((modifier) -> modifier.applyStateChange(newAggregatedState));
@@ -1379,15 +1390,6 @@ index 22e43c482e22..0c1dbc1f20f5 100644
  
          if (needToNotifyExternalListener(mModifiersAggregatedState, newAggregatedState)) {
              mClamperChangeListenerExternal.onChanged();
-@@ -246,6 +308,8 @@ public class BrightnessClamperController {
-     public void dump(PrintWriter writer) {
-         writer.println("BrightnessClamperController:");
-         IndentingPrintWriter ipw = new IndentingPrintWriter(writer, "    ");
-+        ipw.println("deviceCaps: thermal=" + mDeviceThermalCap + " sdr=" + mDeviceSdrCap
-+                + " hdr=" + mDeviceHdrCap + " configured=" + mDeviceCapsConfigured);
-         mLightSensorController.dump(ipw);
-         mModifiers.forEach(modifier -> modifier.dump(ipw));
-     }
 diff --git a/services/core/java/com/android/server/display/brightness/clamper/HdrBrightnessModifier.java b/services/core/java/com/android/server/display/brightness/clamper/HdrBrightnessModifier.java
 index a01f3eb8fe14..a864076d0c36 100644
 --- a/services/core/java/com/android/server/display/brightness/clamper/HdrBrightnessModifier.java
@@ -1979,7 +1981,7 @@ index 94f57de2077f..e0b80383c30f 100644
                  /* brightness= */ anyFloat(),
                  /* userInitiated= */ eq(true),
 diff --git a/services/tests/displayservicetests/src/com/android/server/display/RampAnimatorTest.java b/services/tests/displayservicetests/src/com/android/server/display/RampAnimatorTest.java
-index 810a8b2c8297..322d8b85405b 100644
+index 810a8b2c8297..92808a2a0668 100644
 --- a/services/tests/displayservicetests/src/com/android/server/display/RampAnimatorTest.java
 +++ b/services/tests/displayservicetests/src/com/android/server/display/RampAnimatorTest.java
 @@ -17,6 +17,8 @@
@@ -1991,7 +1993,7 @@ index 810a8b2c8297..322d8b85405b 100644
  
  import android.util.FloatProperty;
  
-@@ -88,6 +90,82 @@ public class RampAnimatorTest {
+@@ -88,6 +90,83 @@ public class RampAnimatorTest {
          assertEquals(0.52739114f, mTestObject.mValue, FLOAT_TOLERANCE);
      }
  
@@ -2013,7 +2015,8 @@ index 810a8b2c8297..322d8b85405b 100644
 +
 +        mRampAnimator.performNextAnimationStep(1_000_000_000);
 +
-+        assertEquals(0.52f, mTestObject.mValue, FLOAT_TOLERANCE);
++        // The property value passes through a float HLG round trip.
++        assertEquals(0.52f, mTestObject.mValue, 0.000001f);
 +    }
 +
 +    @Test
@@ -2075,7 +2078,7 @@ index 810a8b2c8297..322d8b85405b 100644
          private float mValue;
      }
 diff --git a/services/tests/displayservicetests/src/com/android/server/display/brightness/clamper/BrightnessClamperControllerTest.java b/services/tests/displayservicetests/src/com/android/server/display/brightness/clamper/BrightnessClamperControllerTest.java
-index ec37d95be5da..7c10fe039509 100644
+index ec37d95be5da..497a372563d8 100644
 --- a/services/tests/displayservicetests/src/com/android/server/display/brightness/clamper/BrightnessClamperControllerTest.java
 +++ b/services/tests/displayservicetests/src/com/android/server/display/brightness/clamper/BrightnessClamperControllerTest.java
 @@ -33,6 +33,7 @@ import static org.mockito.Mockito.when;
@@ -2086,10 +2089,28 @@ index ec37d95be5da..7c10fe039509 100644
  import android.hardware.display.DisplayManagerInternal;
  import android.os.Handler;
  import android.provider.DeviceConfig;
-@@ -256,6 +257,80 @@ public class BrightnessClamperControllerTest {
+@@ -256,6 +257,106 @@ public class BrightnessClamperControllerTest {
          assertEquals(BrightnessReason.REASON_OVERRIDE, state.getBrightnessReason().getReason());
      }
  
++    @Test
++    public void testDeviceSdrCeilingDoesNotMarkUnclampedAutomaticBrightnessAsThrottled() {
++        mClamperController.setDeviceBrightnessCaps(1.0f, 0.66936404f, 0.805701f);
++        DisplayBrightnessState input = DisplayBrightnessState.builder()
++                .setBrightnessReason(BrightnessReason.REASON_AUTOMATIC).build();
++        // Consume the cap-change transition before an ordinary ambient-light update.
++        mClamperController.clamp(input, mMockRequest, 0.05f, true, STATE_ON);
++
++        DisplayBrightnessState state = mClamperController.clamp(input, mMockRequest,
++                0.07f, true, STATE_ON);
++
++        assertEquals(0.07f, state.getBrightness(), FLOAT_TOLERANCE);
++        assertEquals(0.66936404f, state.getMaxBrightness(), FLOAT_TOLERANCE);
++        assertEquals(BrightnessReason.REASON_AUTOMATIC, state.getBrightnessReason().getReason());
++        assertEquals(0, state.getBrightnessReason().getModifier());
++        assertThat(state.isSlowChange()).isTrue();
++    }
++
 +    @Test
 +    public void testDeviceCapsKeepBrightnessRangeHdrAndThermalReasonConsistent() {
 +        mClamperController.setDeviceBrightnessCaps(0.3f, 0.5f, 0.5f);
@@ -2104,8 +2125,13 @@ index ec37d95be5da..7c10fe039509 100644
 +        assertEquals(0.3f, mClamperController.getMaxBrightness(), FLOAT_TOLERANCE);
 +        assertEquals(BrightnessInfo.BRIGHTNESS_MAX_REASON_THERMAL,
 +                state.getBrightnessMaxReason());
++        assertEquals(BrightnessReason.MODIFIER_THROTTLED,
++                state.getBrightnessReason().getModifier());
 +        assertThat(state.isSlowChange()).isFalse();
-+        state = mClamperController.clamp(input, mMockRequest, 0.2f, true, STATE_ON);
++        // A new strategy evaluation supplies a fresh reason; preserve inherited modifiers.
++        state = mClamperController.clamp(DisplayBrightnessState.builder().build(),
++                mMockRequest, 0.2f, true, STATE_ON);
++        assertEquals(0, state.getBrightnessReason().getModifier());
 +        assertThat(state.isSlowChange()).isTrue();
 +    }
 +
@@ -2130,6 +2156,7 @@ index ec37d95be5da..7c10fe039509 100644
 +            builder.setBrightness(0.2f);
 +            builder.setHdrBrightness(0.15f);
 +            builder.setBrightnessMaxReason(BrightnessInfo.BRIGHTNESS_MAX_REASON_THERMAL);
++            builder.getBrightnessReason().addModifier(BrightnessReason.MODIFIER_THROTTLED);
 +            return null;
 +        }).when(mMockModifier).apply(any(), any());
 +        mClamperController.setDeviceBrightnessCaps(0.6f, 0.5f, 0.5f);
@@ -2140,6 +2167,8 @@ index ec37d95be5da..7c10fe039509 100644
 +        assertEquals(0.2f, state.getMaxBrightness(), FLOAT_TOLERANCE);
 +        assertEquals(BrightnessInfo.BRIGHTNESS_MAX_REASON_THERMAL,
 +                state.getBrightnessMaxReason());
++        assertEquals(BrightnessReason.MODIFIER_THROTTLED,
++                state.getBrightnessReason().getModifier());
 +    }
 +
 +    @Test
