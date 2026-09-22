@@ -12,6 +12,9 @@
     <permission
         android:name="me.sandai.dashled.permission.CONTROL"
         android:protectionLevel="normal" />
+    <permission
+        android:name="me.sandai.dashled.permission.CAMERA_COUNTDOWN"
+        android:protectionLevel="signature" />
 
     <!-- The App access page scans installed packages for dashled client
          metadata; without this the package-visibility filter hides them. -->
@@ -63,6 +66,16 @@
                 <action android:name="me.sandai.dashled.BIND" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name=".CameraCountdownReceiver"
+            android:directBootAware="true"
+            android:exported="true"
+            android:permission="me.sandai.dashled.permission.CAMERA_COUNTDOWN">
+            <intent-filter>
+                <action android:name="me.sandai.dashled.action.CAMERA_COUNTDOWN_TICK" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".LedNotificationListener"
