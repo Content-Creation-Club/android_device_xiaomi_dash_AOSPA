@@ -1,5 +1,37 @@
+# dash power framework hooks
+# Source: lineage-23.2 frameworks/base 9063fa3dc34983f17877ef4b91a63350a0c08bc7
+# Base: ce690697d1f6d60ddf2785374432fa812e0c7c7b
+# Exported: 2026-10-02; feature-only patch, with isolated ProGuard rules.
+
+diff --git a/services/core/java/com/android/server/power/DevicePowerManagerInternal.java b/services/core/java/com/android/server/power/DevicePowerManagerInternal.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..fbc8f6ab805fc740f5d5c803a05319dd30f823b4
+--- /dev/null
++++ b/services/core/java/com/android/server/power/DevicePowerManagerInternal.java
+@@ -0,0 +1,21 @@
++/*
++ * Copyright (C) 2026 The LineageOS Project
++ * SPDX-License-Identifier: Apache-2.0
++ */
++package com.android.server.power;
++
++/** Optional device power events, internal to system_server. Not a Power HAL replacement. */
++public abstract class DevicePowerManagerInternal {
++    /** Callbacks run under the power lock: implementations must only enqueue, never perform IPC. */
++    public interface Listener {
++        void onStateChanged(boolean interactive, boolean launchBoostDisabled);
++        void onLaunch(boolean enabled);
++        void onFling(int displayId, int durationMs);
++    }
++
++    /** Seeds current policy before returning, without replaying an earlier launch or fling. */
++    public abstract void setListener(Listener listener);
++
++    /** Called only by the resolved gesture source, not generic INTERACTION producers. */
++    public abstract void onFling(int displayId, int durationMs);
++}
 diff --git a/services/core/java/com/android/server/power/PowerManagerService.java b/services/core/java/com/android/server/power/PowerManagerService.java
-index ff600c7d0a2b..106c4555e8c4 100644
+index ff600c7d0a2b104bd827c16722330eb6da2d268e..106c4555e8c49ea359f3f629559b8cdb68ec7240 100644
 --- a/services/core/java/com/android/server/power/PowerManagerService.java
 +++ b/services/core/java/com/android/server/power/PowerManagerService.java
 @@ -1417,11 +1417,36 @@ public final class PowerManagerService extends SystemService
@@ -91,7 +123,7 @@ index ff600c7d0a2b..106c4555e8c4 100644
  
      @VisibleForTesting
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index b05de11ffc61..15a9b5ae45f1 100644
+index b05de11ffc61301e1d21fda8c848e6265c0c5244..15a9b5ae45f127b04e1390a65f7b29d432bc0547 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
 @@ -140,6 +140,7 @@ import com.android.internal.util.function.TriFunction;
@@ -115,7 +147,7 @@ index b05de11ffc61..15a9b5ae45f1 100644
  
                  @Override
 diff --git a/services/proguard.flags b/services/proguard.flags
-index b10aa7ef79f1..b4dc4a682167 100644
+index b10aa7ef79f126761c2c869430972d56b5c0650e..b4dc4a68216748a1638ab720c2dcea43ed621556 100644
 --- a/services/proguard.flags
 +++ b/services/proguard.flags
 @@ -14,6 +14,10 @@
@@ -130,7 +162,7 @@ index b10aa7ef79f1..b4dc4a682167 100644
  # TODO(b/373579455): Evaluate if <init> needs to be kept.
  -keep interface android.annotation.SystemApi {
 diff --git a/services/tests/powerservicetests/src/com/android/server/power/PowerManagerServiceTest.java b/services/tests/powerservicetests/src/com/android/server/power/PowerManagerServiceTest.java
-index 4762f2cfbb4a..384135536469 100644
+index 4762f2cfbb4a402b9ba4cd3f95a85617a92b3c15..384135536469d02ad86fd1f98e45474ff62447e9 100644
 --- a/services/tests/powerservicetests/src/com/android/server/power/PowerManagerServiceTest.java
 +++ b/services/tests/powerservicetests/src/com/android/server/power/PowerManagerServiceTest.java
 @@ -3104,6 +3104,53 @@ public class PowerManagerServiceTest {
@@ -187,30 +219,3 @@ index 4762f2cfbb4a..384135536469 100644
      @Test
      public void testMultiDisplay_wakefulnessUpdates() {
          final int nonDefaultDisplayGroupId = Display.DEFAULT_DISPLAY_GROUP + 1;
-diff --git a/services/core/java/com/android/server/power/DevicePowerManagerInternal.java b/services/core/java/com/android/server/power/DevicePowerManagerInternal.java
-new file mode 100644
-index 000000000000..fbc8f6ab805f
---- /dev/null
-+++ b/services/core/java/com/android/server/power/DevicePowerManagerInternal.java
-@@ -0,0 +1,21 @@
-+/*
-+ * Copyright (C) 2026 The LineageOS Project
-+ * SPDX-License-Identifier: Apache-2.0
-+ */
-+package com.android.server.power;
-+
-+/** Optional device power events, internal to system_server. Not a Power HAL replacement. */
-+public abstract class DevicePowerManagerInternal {
-+    /** Callbacks run under the power lock: implementations must only enqueue, never perform IPC. */
-+    public interface Listener {
-+        void onStateChanged(boolean interactive, boolean launchBoostDisabled);
-+        void onLaunch(boolean enabled);
-+        void onFling(int displayId, int durationMs);
-+    }
-+
-+    /** Seeds current policy before returning, without replaying an earlier launch or fling. */
-+    public abstract void setListener(Listener listener);
-+
-+    /** Called only by the resolved gesture source, not generic INTERACTION producers. */
-+    public abstract void onFling(int displayId, int durationMs);
-+}
