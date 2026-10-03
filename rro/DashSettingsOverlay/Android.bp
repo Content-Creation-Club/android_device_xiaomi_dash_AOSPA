@@ -7,4 +7,6 @@ runtime_resource_overlay {
     name: "DashSettingsOverlay",
     certificate: "platform",
     system_ext_specific: true,
+    resource_libs: ["Settings", "org.lineageos.platform-res"],
+    aaptflags: ["--package-id", "0x7e", "--allow-reserved-package-id"],
 }

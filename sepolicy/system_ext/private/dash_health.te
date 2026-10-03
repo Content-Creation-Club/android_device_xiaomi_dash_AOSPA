@@ -26,3 +26,6 @@ dontaudit dash_health self:capability { dac_override dac_read_search };
 allow dash_health sysfs_dash_charge:file rw_file_perms;
 allow dash_health sysfs_batteryinfo:dir search;
 allow dash_health sysfs_battery_supply:dir search;
+
+# dash-health.rc assigns the threshold nodes to system at boot completion.
+allow init sysfs_dash_charge:file setattr;
