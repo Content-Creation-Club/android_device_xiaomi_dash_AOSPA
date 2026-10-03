@@ -102,7 +102,16 @@ final class AppListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return;
         }
         final ViewHolder appHolder = (ViewHolder) holder;
-        final AppEntry entry = mItems.get(position - (mFilterVisible ? 1 : 0));
+        final int appPosition = position - (mFilterVisible ? 1 : 0);
+        final AppEntry entry = mItems.get(appPosition);
+        final int background = mItems.size() == 1 ? R.drawable.bg_card
+                : appPosition == 0 ? R.drawable.bg_profile_top
+                : appPosition == mItems.size() - 1 ? R.drawable.bg_profile_bottom
+                : R.drawable.bg_profile_center;
+        appHolder.itemView.setBackgroundResource(background);
+        final int padding = appHolder.itemView.getResources().getDimensionPixelSize(
+                R.dimen.card_padding);
+        appHolder.itemView.setPaddingRelative(padding, padding, padding, padding);
         appHolder.label.setText(entry.label);
         final CharSequence subtitle = buildSubtitle(appHolder.itemView, entry);
         appHolder.subtitle.setText(subtitle);

@@ -10,14 +10,15 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Process;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toolbar;
+
+import androidx.core.view.ViewCompat;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,7 @@ public class MainActivity extends CollapsingToolbarBaseActivity
     private TextView mErrorHint;
     private TextView mUnavailableText;
     private RecyclerView mRecyclerView;
+    private Toolbar mToolbar;
     private AppListAdapter mAdapter;
 
     private final List<AppEntry> mAllEntries = new ArrayList<>();
@@ -64,6 +66,9 @@ public class MainActivity extends CollapsingToolbarBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mToolbar = findViewById(com.android.settingslib.collapsingtoolbar.R.id.action_bar);
+        mToolbar.getContext().getTheme().applyStyle(R.style.ThemeOverlay_DashThermal_Toolbar, true);
+        mToolbar.setPopupTheme(R.style.ThemeOverlay_DashThermal_Popup);
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_name);
 
@@ -106,56 +111,54 @@ public class MainActivity extends CollapsingToolbarBaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        new MenuInflater(mToolbar.getContext()).inflate(R.menu.main_menu, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_search);
-        final EditText searchEdit = searchItem.getActionView().findViewById(R.id.search_edit);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search_apps_hint));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                searchEdit.requestFocus();
-                searchEdit.post(() -> {
-                    final InputMethodManager imm =
-                            getSystemService(InputMethodManager.class);
-                    imm.showSoftInput(searchEdit, InputMethodManager.SHOW_IMPLICIT);
-                });
+                getAppBarLayout().setExpanded(false, false);
+                ViewCompat.setNestedScrollingEnabled(mRecyclerView, false);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                searchEdit.setText("");
+                searchView.setQuery("", false);
                 mQuery = "";
                 applyFilters();
+                getAppBarLayout().setExpanded(false, false);
+                ViewCompat.setNestedScrollingEnabled(mRecyclerView, true);
                 return true;
             }
         });
-        searchEdit.addTextChangedListener(new TextWatcher() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mQuery = s == null ? "" : s.toString();
+            public boolean onQueryTextChange(String query) {
+                mQuery = query == null ? "" : query;
                 applyFilters();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+                return false;
             }
         });
 
         final MenuItem showSystem = menu.findItem(R.id.action_show_system);
-        showSystem.setChecked(mShowSystem);
+        showSystem.setTitle(mShowSystem ? R.string.action_hide_system : R.string.action_show_system);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_show_system) {
-            mShowSystem = !item.isChecked();
-            item.setChecked(mShowSystem);
+            mShowSystem = !mShowSystem;
+            item.setTitle(mShowSystem ? R.string.action_hide_system : R.string.action_show_system);
             final SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
             editor.putBoolean(PREF_SHOW_SYSTEM, mShowSystem);
             editor.apply();

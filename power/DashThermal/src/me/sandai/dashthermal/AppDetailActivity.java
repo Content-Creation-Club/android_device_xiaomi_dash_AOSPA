@@ -36,6 +36,7 @@ public class AppDetailActivity extends CollapsingToolbarBaseActivity {
     private int mSelectedProfile = -1;
 
     private LinearLayout mOptionsContainer;
+    private LinearLayout mOtherOptions;
     private View mHeader;
     private View mFooter;
     private TextView mUnavailableText;
@@ -112,27 +113,46 @@ public class AppDetailActivity extends CollapsingToolbarBaseActivity {
     private void buildOptions() {
         addSection(R.string.section_general, ThermalProfiles.GENERAL);
         addSection(R.string.section_gaming, ThermalProfiles.GAMING);
-        addSection(R.string.section_others, ThermalProfiles.OTHERS);
+        mOtherOptions = addSection(R.string.section_others, ThermalProfiles.OTHERS);
     }
 
-    private void addSection(int headerRes, int[] profileIds) {
+    private LinearLayout addSection(int headerRes, int[] profileIds) {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final TextView header = (TextView) inflater.inflate(
                 R.layout.item_section_header, mOptionsContainer, false);
         header.setText(headerRes);
         mOptionsContainer.addView(header);
+        final LinearLayout group = new LinearLayout(this);
+        group.setOrientation(LinearLayout.VERTICAL);
+        mOptionsContainer.addView(group, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         for (int profileId : profileIds) {
-            addOption(profileId);
+            addOption(group, profileId);
         }
+        return group;
     }
 
-    private void addOption(int profileId) {
+    private void addOption(LinearLayout group, int profileId) {
         final View card = LayoutInflater.from(this).inflate(
-                R.layout.item_profile_option, mOptionsContainer, false);
+                R.layout.item_profile_option, group, false);
         bindOption(card, profileId);
         mRadios.put(profileId, card.findViewById(R.id.option_radio));
         card.setOnClickListener(v -> onProfileSelected(profileId));
-        mOptionsContainer.addView(card);
+        if (group.getChildCount() > 0) {
+            ((LinearLayout.LayoutParams) card.getLayoutParams()).topMargin =
+                    getResources().getDimensionPixelSize(R.dimen.profile_row_gap);
+        }
+        group.addView(card);
+        for (int i = 0; i < group.getChildCount(); i++) {
+            final int background = group.getChildCount() == 1 ? R.drawable.bg_card
+                    : i == 0 ? R.drawable.bg_profile_top
+                    : i == group.getChildCount() - 1 ? R.drawable.bg_profile_bottom
+                    : R.drawable.bg_profile_center;
+            final View row = group.getChildAt(i);
+            final int padding = getResources().getDimensionPixelSize(R.dimen.card_padding);
+            row.setBackgroundResource(background);
+            row.setPaddingRelative(padding, padding, padding, padding);
+        }
     }
 
     private void bindOption(View card, int profileId) {
@@ -177,7 +197,7 @@ public class AppDetailActivity extends CollapsingToolbarBaseActivity {
         if (profileId == -1 || mRadios.containsKey(profileId)) {
             return;
         }
-        addOption(profileId);
+        addOption(mOtherOptions, profileId);
     }
 
     private void onProfileSelected(int profileId) {
@@ -206,7 +226,14 @@ public class AppDetailActivity extends CollapsingToolbarBaseActivity {
     private void setOptionsEnabled(boolean enabled) {
         mOptionsContainer.setEnabled(enabled);
         for (int i = 0; i < mOptionsContainer.getChildCount(); i++) {
-            mOptionsContainer.getChildAt(i).setEnabled(enabled);
+            final View child = mOptionsContainer.getChildAt(i);
+            child.setEnabled(enabled);
+            if (child instanceof LinearLayout) {
+                final LinearLayout group = (LinearLayout) child;
+                for (int j = 0; j < group.getChildCount(); j++) {
+                    group.getChildAt(j).setEnabled(enabled);
+                }
+            }
         }
     }
 

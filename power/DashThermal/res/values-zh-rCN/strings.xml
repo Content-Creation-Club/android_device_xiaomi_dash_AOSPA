@@ -10,6 +10,7 @@
     <string name="action_search">搜索</string>
     <string name="search_apps_hint">搜索应用…</string>
     <string name="action_show_system">显示系统应用</string>
+    <string name="action_hide_system">隐藏系统应用</string>
     <string name="filter_all_apps">全部应用</string>
     <string name="filter_modified">已修改</string>
     <string name="service_unavailable">调度服务不可用</string>
