@@ -17,4 +17,7 @@
 
     <!-- Xiaomi smart charging resumes five percentage points below the limit. -->
     <integer name="config_chargingControlBatteryRechargeMargin">5</integer>
+
+    <!-- Use the supported percentage mode for initial setup and reset. -->
+    <integer name="config_defaultChargingControlMode">3</integer>
 </resources>
