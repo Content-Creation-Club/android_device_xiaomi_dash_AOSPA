@@ -10,6 +10,7 @@ $(call inherit-product, device/xiaomi/dash/lineage.mk)
 # dash builds are bleeding-edge; brand them as such.
 LINEAGE_BUILDTYPE := RAWHIDE
 
+PRODUCT_NO_CAMERA := true
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 TARGET_FORCE_OTA_PACKAGE := false

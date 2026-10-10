@@ -3,6 +3,8 @@
 
 DEVICE_PATH := device/xiaomi/dash
 
+$(call inherit-product-if-exists, vendor/xiaomi/dash-miuicamera/miuicamera.mk)
+
 $(call inherit-product, $(DEVICE_PATH)/display/livedisplay/livedisplay.mk)
 
 
@@ -86,7 +88,6 @@ PRODUCT_PACKAGES += \
     android.hidl.allocator@1.0-service
 
 PRODUCT_PACKAGES += \
-    DashApertureOverlay \
     DashFrameworkResOverlay \
     DashRefreshRate \
     DashTelecommOverlay \
