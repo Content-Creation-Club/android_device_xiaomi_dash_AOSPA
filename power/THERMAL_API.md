@@ -1,6 +1,6 @@
 # 应用温控后端接口（给 Kimi）
 
-Copyright (C) 2026 GitHub @YorokobiMaster. Apache-2.0.
+Copyright (C) 2026 YorokobiMaster. Apache-2.0.
 
 前端负责原生设置页面；选表、持久化、前台跟踪和 sysfs 写入均由后端负责。接口版本 3。当前验收进度见 `docs/dash/power-hal/reports/thermal-backend.md`，不能把接口文档当成已部署证明。
 

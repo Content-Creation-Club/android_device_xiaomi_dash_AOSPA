@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (C) 2026 GitHub @YorokobiMaster
+# Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 set -eu
 hooks_baseline=ce690697d1f6d60ddf2785374432fa812e0c7c7b

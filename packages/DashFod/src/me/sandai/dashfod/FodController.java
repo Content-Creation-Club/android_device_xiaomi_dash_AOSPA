@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 GitHub @YorokobiMaster
+ * Copyright (C) 2026 YorokobiMaster
  *
  * SPDX-License-Identifier: Apache-2.0
  */

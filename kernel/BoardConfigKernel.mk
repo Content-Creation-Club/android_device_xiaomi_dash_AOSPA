@@ -1,4 +1,4 @@
-# Copyright (C) 2026 GitHub @YorokobiMaster
+# Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 
 DASH_KLEAF_OUT := kernel/xiaomi/dash/bazel-bin/kernel_device_modules-6.6
