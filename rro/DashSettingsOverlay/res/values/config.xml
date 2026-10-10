@@ -4,8 +4,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- Do not route Lineage face enrollment to a private device activity. -->
-    <string name="config_face_enroll" translatable="false"></string>
+    <string name="config_face_enroll" translatable="false">co.aospa.sense/co.aospa.sense.activities.EnrollActivity</string>
 
     <!-- Expose low, medium, and high vibration intensity controls. -->
     <integer name="config_vibration_supported_intensity_levels">3</integer>

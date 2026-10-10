@@ -13,6 +13,7 @@ $(call inherit-product, $(DEVICE_PATH)/display/brightness/brightness.mk)
 $(call inherit-product, $(DEVICE_PATH)/display/livedisplay/livedisplay.mk)
 $(call inherit-product, $(DEVICE_PATH)/power/power.mk)
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
+$(call inherit-product, $(DEVICE_PATH)/face/face.mk)
 
 # Device-specific system_server startup list.
 $(call inherit-product, $(DEVICE_PATH)/device-services.mk)
@@ -77,10 +78,6 @@ PRODUCT_PACKAGES += \
 # Init
 PRODUCT_PACKAGES += \
     init.dash-system_ext.rc
-
-# Permissions
-PRODUCT_PACKAGES += \
-    dash-unavailable-features
 
 # HIDL compatibility
 PRODUCT_PACKAGES += \
