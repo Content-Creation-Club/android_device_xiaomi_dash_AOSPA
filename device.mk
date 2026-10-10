@@ -51,7 +51,8 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot-service.example_recovery \
     android.hardware.health-service.example_recovery \
     fastbootd \
-    toolbox.recovery
+    toolbox.recovery \
+    update_engine_sideload
 
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/recovery/init.recovery.mt6991.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.mt6991.rc \
