@@ -13,4 +13,3 @@ genfscon sysfs /devices/platform/battery-manager/power_supply/battery/charge_con
 genfscon sysfs /devices/platform/battery-manager/power_supply/battery/charge_control_end_threshold u:object_r:sysfs_dash_charge:s0
 
 # Real path resolved on dash; all other thermal nodes retain their vendor labels.
-genfscon sysfs /devices/virtual/thermal/thermal_message/sconfig u:object_r:sysfs_dash_sconfig:s0

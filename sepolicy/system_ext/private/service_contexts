@@ -3,4 +3,3 @@ mtkIms        u:object_r:radio_service:s0
 GbaService    u:object_r:radio_service:s0
 mwis          u:object_r:radio_service:s0
 wfo           u:object_r:radio_service:s0
-dash_thermal  u:object_r:dash_thermal_service:s0

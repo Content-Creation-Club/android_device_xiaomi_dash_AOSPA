@@ -74,3 +74,5 @@ DASH_HARDWARE_PATH ?= hardware/xiaomi/dash
 include $(DASH_HARDWARE_PATH)/BoardConfig.mk
 
 include $(DEVICE_PATH)/fod/BoardConfig.mk
+
+include $(DEVICE_PATH)/power/BoardConfig.mk

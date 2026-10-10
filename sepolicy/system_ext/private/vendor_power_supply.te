@@ -1,0 +1,5 @@
+# Copyright (C) 2026 YorokobiMaster
+# SPDX-License-Identifier: Apache-2.0
+
+# Retained vendor battery type shared by health and Power clients.
+type sysfs_battery_supply;
