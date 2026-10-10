@@ -5,4 +5,4 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/lineage_dash.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_dash-bp4a-userdebug
+    lineage_dash-cp2a-userdebug
