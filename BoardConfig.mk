@@ -37,6 +37,12 @@ TARGET_COPY_OUT_ODM_DLKM := odm_dlkm
 # First-stage init mounts metadata before switching to the system image root.
 BOARD_USES_METADATA_PARTITION := true
 
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab.mt6991
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/recovery/sepolicy
+$(call soong_config_set,libinit,vendor_init_lib,libinit_recovery_fake_lock)
+TARGET_USERIMAGES_USE_F2FS := true
+
 # These partitions remain stock EROFS images; the product configuration below
 # explicitly disables rebuilding them.
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs

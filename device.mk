@@ -40,7 +40,8 @@ PRODUCT_BUILD_BOOT_IMAGE := true
 PRODUCT_BUILD_VENDOR_BOOT_IMAGE := true
 PRODUCT_BUILD_INIT_BOOT_IMAGE := true
 PRODUCT_BUILD_DTBO_IMAGE := false
-PRODUCT_BUILD_RECOVERY_IMAGE := false
+PRODUCT_BUILD_RECOVERY_IMAGE := true
+PRODUCT_BUILD_VBMETA_IMAGE := false
 PRODUCT_BUILD_DEBUG_BOOT_IMAGE := false
 PRODUCT_BUILD_DEBUG_VENDOR_BOOT_IMAGE := false
 
@@ -98,3 +99,15 @@ PRODUCT_PACKAGES += \
 
 DEVICE_PACKAGE_OVERLAYS += \
     $(DEVICE_PATH)/overlay
+
+# Recovery ramdisk fragment in vendor_boot.
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot-service.example_recovery \
+    android.hardware.health-service.example_recovery \
+    fastbootd \
+    toolbox.recovery
+
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/recovery/init.recovery.mt6991.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.mt6991.rc \
+    $(DEVICE_PATH)/recovery/android.hardware.boot-service.mtk_recovery.rc:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/init/android.hardware.boot-service.mtk_recovery.rc \
+    $(DEVICE_PATH)/recovery/mtk-plpath-utils.rc:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/init/mtk-plpath-utils.rc
