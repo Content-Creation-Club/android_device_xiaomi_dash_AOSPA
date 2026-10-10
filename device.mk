@@ -76,7 +76,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # is power_profile.xml, and GL declares battery.capacity 8500 instead of the
 # CN model's 9000, which broke battery drain estimates.
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.miui.build.region=cn
+    ro.miui.build.region=cn \
+    ro.sf.lcd_density=480
 
 # lineage_dash does not inherit build/make/target/product/base_system_ext.mk,
 # so the ashmem allocator service is never installed even though the frozen

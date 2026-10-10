@@ -4,6 +4,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
+    <string name="config_mainDisplayShape" translatable="false">M20 0h1240s20 0 20 20v2732s0 20 -20 20h-1240s-20 0 -20 -20v-2732s0 -20 20 -20</string>
     <!-- DashLED handles ring notifications. Keep the standard notification
          and attention producers disabled while retaining the stock HAL. -->
 

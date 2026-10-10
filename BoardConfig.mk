@@ -25,6 +25,8 @@ include $(DEVICE_PATH)/kernel/BoardConfigKernel.mk
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_FLASH_BLOCK_SIZE := 262144
 
+TARGET_SCREEN_DENSITY := 480
+
 # Downstream products select the system, product and system_ext filesystems.
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext

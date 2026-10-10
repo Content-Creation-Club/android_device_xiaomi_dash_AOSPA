@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2026 YorokobiMaster
+    SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
     <!-- Rounded corners -->
-    <dimen name="rounded_corner_radius">156px</dimen>
     <dimen name="rounded_corner_radius_top">156px</dimen>
     <dimen name="rounded_corner_radius_bottom">156px</dimen>
-    <dimen name="rounded_corner_content_padding">84px</dimen>
 </resources>
