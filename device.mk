@@ -90,6 +90,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DashFrameworkResOverlay \
     DashRefreshRate \
+    DashSettingsProviderOverlay \
     DashTelecommOverlay \
     DashTelephonyOverlay \
     DashWifiOverlay \
