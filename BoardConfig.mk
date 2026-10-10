@@ -78,3 +78,5 @@ include $(DEVICE_PATH)/fod/BoardConfig.mk
 include $(DEVICE_PATH)/power/BoardConfig.mk
 
 include $(DEVICE_PATH)/ims/BoardConfig.mk
+
+include $(DEVICE_PATH)/health/BoardConfig.mk

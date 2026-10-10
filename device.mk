@@ -3,6 +3,8 @@
 
 DEVICE_PATH := device/xiaomi/dash
 
+$(call inherit-product, $(DEVICE_PATH)/health/health.mk)
+
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
 
 $(call inherit-product, $(DEVICE_PATH)/device-services.mk)
@@ -90,7 +92,6 @@ PRODUCT_PACKAGES += \
     DashTelecommOverlay \
     DashTelephonyOverlay \
     DashWifiOverlay \
-    dash-health \
     dash-displayfeature-compat \
     dash-livedisplay \
     dash-unavailable-features \

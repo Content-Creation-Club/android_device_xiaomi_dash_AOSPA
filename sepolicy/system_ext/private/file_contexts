@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 /(system_ext|system/system_ext)/bin/hw/dash-livedisplay  u:object_r:dash_livedisplay_exec:s0
-/(system_ext|system/system_ext)/bin/hw/dash-health  u:object_r:dash_health_exec:s0
 /(system_ext|system/system_ext)/bin/dash-displayfeature-compat  u:object_r:dash_displayfeature_compat_exec:s0
 /dev/disp_feature  u:object_r:vendor_displayfeature_device:s0
 
@@ -11,5 +10,3 @@
 # re-applies it, overriding the genfscon in genfs_contexts. This exact-path
 # entry wins on longest stem and makes the restorecon assign our label
 # instead, so dash_health keeps access across uevents.
-/sys/devices/platform/battery-manager/power_supply/battery/charge_control_start_threshold  u:object_r:sysfs_dash_charge:s0
-/sys/devices/platform/battery-manager/power_supply/battery/charge_control_end_threshold  u:object_r:sysfs_dash_charge:s0

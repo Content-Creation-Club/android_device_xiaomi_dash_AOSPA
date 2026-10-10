@@ -1,4 +1,4 @@
-# Copyright (C) 2026 @YorokobiMaster
+# Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 
 # Native smart-charge thresholds exposed by the battery power-supply driver.
@@ -11,5 +11,3 @@
 # matching entry in file_contexts, which is what actually keeps the label.
 genfscon sysfs /devices/platform/battery-manager/power_supply/battery/charge_control_start_threshold u:object_r:sysfs_dash_charge:s0
 genfscon sysfs /devices/platform/battery-manager/power_supply/battery/charge_control_end_threshold u:object_r:sysfs_dash_charge:s0
-
-# Real path resolved on dash; all other thermal nodes retain their vendor labels.
