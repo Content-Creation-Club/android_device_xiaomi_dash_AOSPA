@@ -1,20 +1,7 @@
 # Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 
-# 64-bit-only phone framework partition composition.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, device/xiaomi/dash/device.mk)
-$(call inherit-product, device/xiaomi/dash/lineage.mk)
-
-# dash builds are bleeding-edge; brand them as such.
-LINEAGE_BUILDTYPE := RAWHIDE
-
-PRODUCT_NO_CAMERA := true
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-
-TARGET_FORCE_OTA_PACKAGE := false
-
+# What's this?
 PRODUCT_NAME := lineage_dash
 PRODUCT_DEVICE := dash
 PRODUCT_BRAND := Redmi
@@ -31,3 +18,18 @@ PRODUCT_SYSTEM_MANUFACTURER := Xiaomi
 
 PRODUCT_RELEASE_NAME := dash
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS :=
+
+# 64-bit-only
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, device/xiaomi/dash/device.mk)
+$(call inherit-product, device/xiaomi/dash/lineage.mk)
+
+# bleeding-edge? probably.
+LINEAGE_BUILDTYPE := RAWHIDE
+
+# I don't like Aperture.
+PRODUCT_NO_CAMERA := true
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+TARGET_FORCE_OTA_PACKAGE := false

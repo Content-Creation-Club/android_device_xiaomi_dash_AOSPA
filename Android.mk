@@ -4,7 +4,6 @@
 LOCAL_PATH := $(call my-dir)
 ifeq ($(TARGET_DEVICE),dash)
 
-
 # Install the retained platform contents using Android's file-copy rules.
 # Modules and modules.load are installed separately by the core depmod rules.
 dash_platform_root := $(DASH_KERNEL_INPUTS)/platform
