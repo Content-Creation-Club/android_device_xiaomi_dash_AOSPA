@@ -1,4 +1,4 @@
-# Copyright (C) 2026 @YorokobiMaster
+# Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 
 type dash_livedisplay, coredomain, domain;
@@ -20,14 +20,9 @@ binder_call(dash_livedisplay, servicemanager)
 # resulting self capability denials instead of granting DAC override.
 dontaudit dash_livedisplay self:capability { dac_override dac_read_search };
 
-# The retained stock vendor policy owns these types. Redeclare them here so
-# this module can express the client rules, same pattern as
-# vendor_displayfeature_device in device.te.
-type vendor_hal_displayfeature_xiaomi_default, domain;
-type vendor_hal_displayfeature_xiaomi_service, service_manager_type, hal_service_type;
-
+# Shared vendor HAL types are declared in vendor_displayfeature.te.
 allow dash_livedisplay vendor_hal_displayfeature_xiaomi_service:service_manager find;
 binder_call(dash_livedisplay, vendor_hal_displayfeature_xiaomi_default)
 
-# DashEyeCare owns the requested level; the service applies it.
+# The system_server bridge owns the requested level; the service applies it.
 get_prop(dash_livedisplay, dash_eyecare_prop)

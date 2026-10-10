@@ -3,6 +3,8 @@
 
 DEVICE_PATH := device/xiaomi/dash
 
+$(call inherit-product, $(DEVICE_PATH)/display/livedisplay/livedisplay.mk)
+
 $(call inherit-product, $(DEVICE_PATH)/health/health.mk)
 
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
@@ -84,7 +86,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     DashApertureOverlay \
-    DashEyeCare \
     DashFrameworkResOverlay \
     DashLineagePartsOverlay \
     DashRefreshRate \
@@ -93,7 +94,6 @@ PRODUCT_PACKAGES += \
     DashTelephonyOverlay \
     DashWifiOverlay \
     dash-displayfeature-compat \
-    dash-livedisplay \
     dash-unavailable-features \
     init.dash-system_ext.rc \
     libhidltransport

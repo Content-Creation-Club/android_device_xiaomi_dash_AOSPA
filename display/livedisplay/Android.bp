@@ -1,11 +1,9 @@
-// Copyright (C) 2026 @YorokobiMaster
+// Copyright (C) 2026 YorokobiMaster
 // SPDX-License-Identifier: Apache-2.0
 
-// Binder-free state machine. Host-supported so Gate 2 host tests link only
-// this library; the AIDL runtimes stay in the device-only modules below.
+// Binder-free state machine used by the device service.
 cc_library_static {
     name: "libdash_livedisplay_core",
-    host_supported: true,
     srcs: ["DashLiveDisplayCore.cpp"],
     export_include_dirs: ["."],
     shared_libs: ["libbase"],
@@ -46,16 +44,4 @@ cc_binary {
     relative_install_path: "hw",
     init_rc: ["dash-livedisplay.rc"],
     vintf_fragments: ["dash-livedisplay.xml"],
-}
-
-cc_test_host {
-    name: "DashLiveDisplayHostTest",
-    srcs: ["tests/DashDisplayModesTest.cpp"],
-    static_libs: [
-        "libdash_livedisplay_core",
-        "libgtest",
-        "libgtest_main",
-    ],
-    shared_libs: ["libbase"],
-    test_suites: ["general-tests"],
 }

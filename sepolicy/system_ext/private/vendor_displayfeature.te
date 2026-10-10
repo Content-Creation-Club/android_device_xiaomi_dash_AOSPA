@@ -1,0 +1,7 @@
+# Copyright (C) 2026 YorokobiMaster
+# SPDX-License-Identifier: Apache-2.0
+
+# The retained stock vendor policy owns these types. Redeclare them for
+# brightness, LiveDisplay and thermal clients, as with vendor_displayfeature_device.
+type vendor_hal_displayfeature_xiaomi_default, domain;
+type vendor_hal_displayfeature_xiaomi_service, service_manager_type, hal_service_type;
