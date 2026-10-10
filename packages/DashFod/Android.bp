@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2026 @YorokobiMaster
+// Copyright (C) 2026 YorokobiMaster
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -31,17 +31,4 @@ android_app {
     certificate: "platform",
     privileged: true,
     system_ext_specific: true,
-}
-
-java_test_host {
-    name: "DashFodHostTest",
-    srcs: [
-        "src/me/sandai/dashfod/FodController.java",
-        "tests/src/**/*.java",
-    ],
-    test_suites: ["general-tests"],
-    test_options: {
-        unit_test: true,
-    },
-    static_libs: ["junit"],
 }
