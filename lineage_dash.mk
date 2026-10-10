@@ -6,6 +6,7 @@ DASH_ENABLE_POWER_HOOKS ?= true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/xiaomi/dash/device.mk)
+$(call inherit-product, $(DASH_HARDWARE_PATH)/lineage.mk)
 
 # dash builds are bleeding-edge; brand them as such.
 LINEAGE_BUILDTYPE := RAWHIDE

@@ -5,15 +5,12 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The ring is controlled through DashLED, not Lineage's system lights. -->
-    <integer name="config_deviceLightCapabilities">0</integer>
 
     <!-- Check proximity for framework wake-key paths such as the KEY_WAKEUP
          event emitted by double-tap. DashWake arbitrates pickup against the
          Xiaomi pocket sensor in its own device-specific policy. -->
-    <bool name="config_proximityCheckOnWake">true</bool>
 
     <!-- Ship it on: this is the behaviour stock users already expect. -->
-    <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
 
     <!-- Xiaomi smart charging resumes five percentage points below the limit. -->
     <integer name="config_chargingControlBatteryRechargeMargin">5</integer>

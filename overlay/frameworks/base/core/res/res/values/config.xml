@@ -33,11 +33,8 @@
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
 
     <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">true</bool>
 
     <!-- AOSP Screen attention, backed by dash's front-camera AOV pipeline. -->
-    <string name="config_defaultAttentionService" translatable="false">me.sandai.dashwake/me.sandai.dashwake.aov.DashAttentionService</string>
-    <bool name="config_adaptive_sleep_available">true</bool>
 
     <!-- DashFod arms the fingerprint extension only after Doze is visible. -->
     <bool name="config_screen_off_udfps_enabled">true</bool>

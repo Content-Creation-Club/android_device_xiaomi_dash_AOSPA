@@ -3,6 +3,9 @@
 
 DEVICE_PATH := device/xiaomi/dash
 
+DASH_HARDWARE_PATH ?= hardware/xiaomi/dash
+$(call inherit-product, $(DASH_HARDWARE_PATH)/dash.mk)
+
 $(call inherit-product, $(DEVICE_PATH)/fod/fod.mk)
 
 $(call inherit-product, $(DEVICE_PATH)/display/brightness/brightness.mk)
@@ -39,7 +42,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
 
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
-    $(DEVICE_PATH)/wake \
     vendor/xiaomi/dash
 
 # Bluetooth profiles exposed by the stock phone product.
@@ -60,9 +62,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
     bluetooth.profile.pbap.server.enabled=true \
     bluetooth.profile.sap.server.enabled=true
 
-PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    ro.audio.ihaladaptervendorextension_enabled=true
-
 # HyperOS fills ro.miui.build.region at runtime; nothing in this build did,
 # so the static vendor overlay FrameworkResOverlay_dashCN (which requires
 # region=cn) never activated and the GL one won by default. Its only payload
@@ -79,12 +78,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     DashApertureOverlay \
-    DashCharging \
-    DashDolby \
-    DashWake \
     DashEyeCare \
     DashFrameworkResOverlay \
-    DashLedService \
     DashLineagePartsOverlay \
     DashRefreshRate \
     DashSettingsOverlay \
@@ -93,7 +88,6 @@ PRODUCT_PACKAGES += \
     DashWifiOverlay \
     ImsService \
     MtkGbaService \
-    dash-audio-parameter-parser \
     dash-ims-appcompat \
     mediatek-common \
     mediatek-ims-base \
@@ -102,10 +96,7 @@ PRODUCT_PACKAGES += \
     dash-displayfeature-compat \
     dash-livedisplay \
     dash-unavailable-features \
-    dash-vibrator-adapter \
-    default-permissions-dashwake \
     init.dash-system_ext.rc \
-    libaudiopolicymanagercustom \
     libhidltransport \
     libmtk_vt_wrapper \
     libvcodec_cap \

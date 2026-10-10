@@ -69,3 +69,6 @@ BOARD_VENDOR_DLKMIMAGE_EROFS_PCLUSTER_SIZE := 16384
 
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/system_ext/private
+
+DASH_HARDWARE_PATH ?= hardware/xiaomi/dash
+include $(DASH_HARDWARE_PATH)/BoardConfig.mk
