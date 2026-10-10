@@ -6,7 +6,7 @@ service dash-health /system_ext/bin/hw/dash-health
     user system
     group system
 
-on property:dev.bootcomplete=1
+on property:sys.boot_completed=1
     chown system system /sys/class/power_supply/battery/charge_control_start_threshold
     chown system system /sys/class/power_supply/battery/charge_control_end_threshold
     chmod 0660 /sys/class/power_supply/battery/charge_control_start_threshold
