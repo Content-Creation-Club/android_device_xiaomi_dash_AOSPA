@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- VoLTE available -->
-    <bool name="config_device_volte_available">true</bool>
 
     <!-- 5G modes supported by the retained MediaTek radio stack -->
     <bool name="config_telephony5gStandalone">true</bool>
