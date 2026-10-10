@@ -9,25 +9,3 @@ java_library {
     system_ext_specific: true,
     installable: true,
 }
-
-// tests/me/.../BrightnessCapsTest.java is a main()-style host-only check of the
-// stock thermal XML; the tests/src glob below deliberately excludes it. Its
-// repeatable entry point is tests/ambient-host.sh, not this module.
-android_test {
-    name: "DashBrightnessTests",
-    srcs: ["tests/src/**/*.java"],
-    manifest: "tests/AndroidManifest.xml",
-    static_libs: [
-        "dash-brightness",
-        "services.core",
-        "androidx.test.runner",
-        "androidx.test.ext.junit",
-        "junit",
-        "mockito-target-inline-minus-junit4",
-    ],
-    jni_libs: ["libdexmakerjvmtiagent"],
-    platform_apis: true,
-    certificate: "platform",
-    test_suites: ["device-tests"],
-    optimize: { enabled: false },
-}

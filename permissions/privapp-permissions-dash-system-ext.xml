@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2026 GitHub @YorokobiMaster
-
-     SPDX-License-Identifier: Apache-2.0
--->
-<permissions>
-    <!-- Also permit APK updates to add these permissions on non-debuggable builds. -->
-</permissions>

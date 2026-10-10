@@ -94,11 +94,7 @@ PRODUCT_PACKAGES += \
     dash-unavailable-features \
     init.dash-system_ext.rc \
     libhidltransport
-    privapp-permissions-dash-system-ext \
 
 
 DEVICE_PACKAGE_OVERLAYS += \
     $(DEVICE_PATH)/overlay
-
-# MindTheGApps/vendor_gapps, branch `baklava`, core GMS fits default partition sizes.
-$(call inherit-product, $(DEVICE_PATH)/enhancements/gapps/core-arm64.mk)
