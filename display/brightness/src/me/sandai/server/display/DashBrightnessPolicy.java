@@ -1,4 +1,4 @@
-/* Copyright (C) 2026 GitHub @YorokobiMaster
+/* Copyright (C) 2026 YorokobiMaster
  * SPDX-License-Identifier: Apache-2.0
  */
 package me.sandai.server.display;
@@ -41,6 +41,8 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
     private static final int DISPLAY_STATE_OFF = 0;
     private static final int DISPLAY_STATE_ON = 1;
     private static final int HIST_GRAY_STATE = 56;
+    private static final int DOLBY_STATE_NOTIFY = 50000;
+    private static final int DOLBY_STATE_ACTIVE = 2;
     private static final int DISPLAY_FEATURE_COOKIE = 255;
     private final Handler mDisplayHandler;
     private final Runnable mChanged;
@@ -60,14 +62,17 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
     private final Runnable mReconnect = this::reconnect;
 
     private record HalInputs(boolean callbackRegistered, boolean displayStateSynced,
-            boolean histogramEnabled, int gray, long lastGrayCallbackUptimeMillis,
+            boolean histogramEnabled, boolean dolbyVisionActive, int gray,
+            long lastGrayCallbackUptimeMillis,
             long grayCallbackCount) {
-        static final HalInputs IDLE = new HalInputs(false, false, false,
+        static final HalInputs IDLE = new HalInputs(false, false, false, false,
                 ContentBrightness.RESET_GRAY, -1, 0);
     }
 
     private boolean mRunning;
     private boolean mWorkerHistogramEligible;
+    private boolean mWorkerAutomatic;
+    private boolean mDolbyVisionActive;
     private int mWorkerGeneration;
     private IDisplayFeature mRemote;
     private IBinder mBinder;
@@ -142,7 +147,8 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
                 mWorker.post(() -> {
                     if (!mRunning || mWorkerGeneration != generation) return;
                     mWorkerHistogramEligible = histogramEligible;
-                    setHistogramEnabled(histogramEligible);
+                    mWorkerAutomatic = automatic;
+                    updateHistogramEnabled();
                 });
             }
             return;
@@ -161,6 +167,7 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
         mWorker.post(() -> {
             mRunning = interactive;
             mWorkerHistogramEligible = histogramEligible;
+            mWorkerAutomatic = automatic;
             mWorkerGeneration = generation;
             mWorker.removeCallbacks(mReconnect);
             if (!interactive) {
@@ -172,12 +179,20 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
         });
     }
 
+    public boolean isDolbyVisionActive() {
+        return mInteractive && mHal.dolbyVisionActive();
+    }
+
+    private boolean isHdrScene() {
+        return mHdrLayerPresent || isDolbyVisionActive();
+    }
+
     @Override
     public Limits getLimits() {
         if (!mInteractive) return Limits.UNAVAILABLE;
         HalInputs hal = mHal;
         int gray = hal.gray();
-        float sdr = mAutomatic && !mHdrLayerPresent
+        float sdr = mAutomatic && !isHdrScene()
                 ? ContentBrightness.sdrCap(mLux, gray) : Float.NaN;
         float thermal = resolveThermal(mThermal);
         return new Limits(thermal, sdr,
@@ -186,7 +201,7 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
 
     private float resolveThermal(ThermalCaps.Inputs inputs) {
         Integer condition = HdrBrightness.thermalCondition(
-                mHdrLayerPresent, inputs.condition());
+                isHdrScene(), inputs.condition());
         ThermalCaps.Inputs effective = new ThermalCaps.Inputs(inputs.table(),
                 inputs.temperature(), inputs.safety(), condition);
         return ThermalCaps.resolve(effective, mLux);
@@ -288,6 +303,17 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
             @Override
             public void displayfeatureInfoChanged(int caseId, int value,
                     float red, float green, float blue) {
+                if (caseId == DOLBY_STATE_NOTIFY) {
+                    mWorker.post(() -> {
+                        if (!mRunning || mCallback != this || mBinder != binder) return;
+                        boolean active = value == DOLBY_STATE_ACTIVE;
+                        if (mDolbyVisionActive == active) return;
+                        mDolbyVisionActive = active;
+                        updateHistogramEnabled();
+                        publishHal();
+                    });
+                    return;
+                }
                 if (caseId != 95000 || !ContentBrightness.isValidGray(value)) return;
                 final long histogramGeneration = mHistogramGeneration;
                 mWorker.post(() -> {
@@ -316,7 +342,7 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
             remote.setFeature(0, DISPLAY_STATE_NOTIFY, DISPLAY_STATE_ON,
                     DISPLAY_FEATURE_COOKIE);
             mDisplayStateSynced = true;
-            setHistogramEnabled(mWorkerHistogramEligible);
+            updateHistogramEnabled();
             publishHal();
         } catch (RemoteException | RuntimeException e) {
             Slog.w(TAG, "DisplayFeature setup failed", e);
@@ -335,6 +361,11 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
     private void reconnect() {
         if (!mRunning || mRemote != null) return;
         connect();
+    }
+
+    private void updateHistogramEnabled() {
+        setHistogramEnabled(mRunning && (mWorkerHistogramEligible
+                || (mWorkerAutomatic && mDolbyVisionActive)));
     }
 
     private void setHistogramEnabled(boolean enabled) {
@@ -386,6 +417,7 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
         mCallbackRegistered = false;
         mHistogramEnabled = false;
         mDisplayStateSynced = false;
+        mDolbyVisionActive = false;
         if (binder == null) return;
         if (binder.isBinderAlive()) {
             if (histogramEnabled) {
@@ -409,7 +441,8 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
     private void publishHal() {
         final int generation = mWorkerGeneration;
         final HalInputs inputs = new HalInputs(mCallbackRegistered, mDisplayStateSynced,
-                mHistogramEnabled, mGray, mLastGrayCallbackUptimeMillis, mGrayCallbackCount);
+                mHistogramEnabled, mDolbyVisionActive, mGray,
+                mLastGrayCallbackUptimeMillis, mGrayCallbackCount);
         mDisplayHandler.post(() -> {
             if (mStopped || !mInteractive || generation != mGeneration) return;
             boolean limitsChanged = contentLimitsChanged(mHal, inputs);
@@ -419,9 +452,10 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
     }
 
     private boolean contentLimitsChanged(HalInputs before, HalInputs after) {
-        float beforeSdr = mAutomatic && !mHdrLayerPresent
+        if (before.dolbyVisionActive() != after.dolbyVisionActive()) return true;
+        float beforeSdr = mAutomatic && !mHdrLayerPresent && !before.dolbyVisionActive()
                 ? ContentBrightness.sdrCap(mLux, before.gray()) : Float.NaN;
-        float afterSdr = mAutomatic && !mHdrLayerPresent
+        float afterSdr = mAutomatic && !mHdrLayerPresent && !after.dolbyVisionActive()
                 ? ContentBrightness.sdrCap(mLux, after.gray()) : Float.NaN;
         float beforeHdr = HdrBrightness.cap(mAutomatic, mLux, before.gray());
         float afterHdr = HdrBrightness.cap(mAutomatic, mLux, after.gray());
@@ -475,12 +509,13 @@ public final class DashBrightnessPolicy implements DeviceBrightnessPolicy {
         long now = SystemClock.uptimeMillis();
         writer.println("DashBrightnessPolicy: interactive=" + mInteractive + " auto=" + mAutomatic
                 + " lux=" + mLux + " hdrLayerPresent=" + mHdrLayerPresent
+                + " dolbyVisionActive=" + isDolbyVisionActive()
                 + " limits=" + getLimits());
         writer.println("  thermal: temperature=" + thermal.temperature() + " safety="
                 + thermal.safety() + " displayTemperature=" + mDisplayTemperature
                 + " condition=" + thermal.condition()
                 + " effectiveCondition="
-                + HdrBrightness.thermalCondition(mHdrLayerPresent, thermal.condition()));
+                + HdrBrightness.thermalCondition(isHdrScene(), thermal.condition()));
         writer.println("  hal: callbackRegistered=" + hal.callbackRegistered()
                 + " displayStateSynced=" + hal.displayStateSynced() + " histogramEnabled="
                 + hal.histogramEnabled() + " gray=" + hal.gray() + " grayCallbacks="
