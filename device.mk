@@ -5,7 +5,6 @@ DEVICE_PATH := device/xiaomi/dash
 
 $(call inherit-product, $(DEVICE_PATH)/display/livedisplay/livedisplay.mk)
 
-$(call inherit-product, $(DEVICE_PATH)/health/health.mk)
 
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
 
@@ -87,9 +86,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DashApertureOverlay \
     DashFrameworkResOverlay \
-    DashLineagePartsOverlay \
     DashRefreshRate \
-    DashSettingsOverlay \
     DashTelecommOverlay \
     DashTelephonyOverlay \
     DashWifiOverlay \
@@ -101,8 +98,7 @@ PRODUCT_PACKAGES += \
 
 
 DEVICE_PACKAGE_OVERLAYS += \
-    $(DEVICE_PATH)/overlay \
-    $(DEVICE_PATH)/overlay-lineage
+    $(DEVICE_PATH)/overlay
 
 # MindTheGApps/vendor_gapps, branch `baklava`, core GMS fits default partition sizes.
 $(call inherit-product, $(DEVICE_PATH)/enhancements/gapps/core-arm64.mk)

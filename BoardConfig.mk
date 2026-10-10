@@ -79,6 +79,8 @@ include $(DEVICE_PATH)/power/BoardConfig.mk
 
 include $(DEVICE_PATH)/ims/BoardConfig.mk
 
-include $(DEVICE_PATH)/health/BoardConfig.mk
-
 include $(DEVICE_PATH)/display/livedisplay/BoardConfig.mk
+
+ifeq ($(TARGET_PRODUCT),lineage_dash)
+include $(DEVICE_PATH)/BoardConfigLineage.mk
+endif
