@@ -4,5 +4,6 @@
     <string-array name="config_deviceSpecificSystemServices" translatable="false">
         <item>me.sandai.dashfod.DashFodService</item>
         <item>me.sandai.dashpower.DashPowerService</item>
+        <item>me.sandai.dasheyecare.NightLightBridge</item>
     </string-array>
 </resources>
