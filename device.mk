@@ -3,6 +3,8 @@
 
 DEVICE_PATH := device/xiaomi/dash
 
+$(call inherit-product, $(DEVICE_PATH)/device-services.mk)
+
 DASH_HARDWARE_PATH ?= hardware/xiaomi/dash
 $(call inherit-product, $(DASH_HARDWARE_PATH)/dash.mk)
 
