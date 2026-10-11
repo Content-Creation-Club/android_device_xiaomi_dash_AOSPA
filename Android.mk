@@ -6,10 +6,17 @@ ifeq ($(TARGET_DEVICE),dash)
 
 # Platform contains only first-stage inputs; Soong installs kernel modules.
 dash_platform_root := $(DASH_KERNEL_INPUTS)/platform
-dash_platform_files := first_stage_ramdisk/fstab.mt6991 lib/modules/modules.load.recovery
+dash_platform_files := first_stage_ramdisk/fstab.mt6991
 dash_platform_outputs := $(addprefix $(TARGET_VENDOR_RAMDISK_OUT)/,$(dash_platform_files))
 $(foreach file,$(dash_platform_files),$(eval $(call copy-one-file,$(dash_platform_root)/$(file),$(TARGET_VENDOR_RAMDISK_OUT)/$(file))))
 ALL_DEFAULT_INSTALLED_MODULES += $(dash_platform_outputs)
+
+# Retain stock recovery load order for modules installed in the vendor ramdisk.
+dash_recovery_modules_load := $(TARGET_VENDOR_RAMDISK_OUT)/lib/modules/modules.load.recovery
+$(dash_recovery_modules_load): $(dash_platform_root)/lib/modules/modules.load.recovery $(LOCAL_PATH)/kernel/modules.mk
+	@mkdir -p $(dir $@)
+	$(hide) awk 'BEGIN { n=split("$(notdir $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES))", modules); for (i=1; i<=n; i++) included[modules[i]]=1 } $$0 in included' $< > $@
+ALL_DEFAULT_INSTALLED_MODULES += $(dash_recovery_modules_load)
 
 # Retain the MTK UFS boot-control implementation as recovery inputs.
 dash_recovery_mtk_root := $(DASH_KERNEL_INPUTS)/recovery-mtk

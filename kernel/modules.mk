@@ -45,7 +45,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cmdq-platform-mt6991.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cmdq_helper_inf.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cqhci.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/crash_module.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/dbg_error_flag.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/dbgtop-drm.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/debug_ext.ko \
@@ -89,10 +88,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mediatek-cpufreq-hw.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mediatek-drm.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_memory.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_stack.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_t1_gpio.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_ubt.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_ubt_test.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miev.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mitee.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mkp.ko \
@@ -208,7 +204,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/pd-chk-mt6991.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/pd_dbg_info.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/pd_single_cp_manager.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/perf_helper.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/phy-mtk-mt6379-eusb2-repeater.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/phy-mtk-nxp-eusb2-repeater.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/phy-mtk-pcie.ko \
@@ -242,7 +237,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/sec-rng.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/sec.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/sgm38120.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/simtray.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/slbc_ipi.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/slbc_trace.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/slc-parity.ko \
@@ -292,10 +286,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/perf-actuator.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miicmpfilter.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xm_power.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_mem_epoll.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/sla.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/minet.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_mempool.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/io_monitor.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/lb.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_schedule.ko \
@@ -305,12 +295,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miwill_mode_redudancy.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/metis.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/migt.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_core.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_hs.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_sig.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_pkg.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/binder_gki.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_binder.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66.user/net/bluetooth/bluetooth.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/board_temp.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/bq25985_charger.ko \
