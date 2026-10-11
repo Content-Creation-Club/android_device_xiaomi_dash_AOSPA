@@ -93,6 +93,10 @@ mtk-vcodec-dec-v2.ko
 mtk-vcodec-enc-v2.ko
 jpeg-driver.ko
 cpufreq_sugov_ext.ko
+perf-actuator.ko
+mi_schedule.ko
+xr-qi.ko
+metis.ko
 scheduler.ko
 mtk_core_ctl.ko
 mtk_em.ko
@@ -233,7 +237,9 @@ mi_t1_gpio.ko
 unionpower.ko
 dio_dma_mapper.ko
 powersave.ko
-perf-actuator.ko
+mi_mem_epoll.ko
+sla.ko
+minet.ko
 miicmpfilter.ko
 millet_core.ko
 millet_hs.ko
@@ -241,3 +247,11 @@ millet_sig.ko
 millet_pkg.ko
 binder_gki.ko
 millet_binder.ko
+xm_power.ko
+mi_mempool.ko
+io_monitor.ko
+lb.ko
+xr-qs.ko
+miwill.ko
+miwill_mode_redudancy.ko
+migt.ko

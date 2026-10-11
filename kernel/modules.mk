@@ -291,6 +291,20 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/binder_prio.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/perf-actuator.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miicmpfilter.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xm_power.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_mem_epoll.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/sla.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/minet.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_mempool.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/io_monitor.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/lb.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_schedule.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qi.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qs.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miwill.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miwill_mode_redudancy.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/metis.ko \
+    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/migt.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_core.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_hs.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/millet_sig.ko \
