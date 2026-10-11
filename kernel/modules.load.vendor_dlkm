@@ -223,7 +223,6 @@ ccci_fsm_scp.ko
 jank_detection_common_utils.ko
 jank_detection_core.ko
 trace_mmstat.ko
-binder_prio.ko
 frs.ko
 mtk_c2ps.ko
 c2ps_perf_ioctl.ko
@@ -233,15 +232,9 @@ hbt.ko
 isp_pspm_ioctl.ko
 xiaomi_touch_dash.ko
 nt38771_touch_dash.ko
-mi_t1_gpio.ko
-unionpower.ko
-dio_dma_mapper.ko
 powersave.ko
 miicmpfilter.ko
 xm_power.ko
 io_monitor.ko
 lb.ko
 xr-qs.ko
-miwill.ko
-miwill_mode_redudancy.ko
-migt.ko

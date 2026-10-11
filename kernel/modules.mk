@@ -88,7 +88,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mediatek-cpufreq-hw.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mediatek-drm.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_memory.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_t1_gpio.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miev.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mitee.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mkp.ko \
@@ -282,7 +281,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/atf_logger.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/audio_ipi.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/backlight_cooling.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/binder_prio.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/perf-actuator.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miicmpfilter.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xm_power.ko \
@@ -291,10 +289,7 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_schedule.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qi.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qs.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miwill.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miwill_mode_redudancy.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/metis.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/migt.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66.user/net/bluetooth/bluetooth.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/board_temp.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/bq25985_charger.ko \
@@ -332,7 +327,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cpufreq_sugov_ext.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cpuqos_ext.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/cpuqos_v3.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/dio_dma_mapper.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/dw9781c.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/dw9781d.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/eas_ext.ko \
@@ -393,7 +387,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/met_sspm_api.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/met_vcore_api.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_gps_pwr.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_t1_gpio.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_thermal_interface.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mt6681-accdet.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mt6991-mt6681.ko \
@@ -535,7 +528,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/tui-common.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/uarthub_drv.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/uload_ind.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/unionpower.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/usb_offload.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/vdec-fmt.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/vtskin_temp.ko \
