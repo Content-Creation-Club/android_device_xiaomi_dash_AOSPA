@@ -14,6 +14,30 @@ service vendor.misys.common /vendor/bin/hypsys_vendor
     interface aidl vendor.xiaomi.hardware.misys.common.IMiSysImpl/default
     disabled
 
+# Disable Xiaomi network acceleration before its vendor service classes start.
+on init
+    stop minetd
+    stop slad
+    stop sla-service-hal-2-0
+    stop vendor.xiaomi.aidl.minet
+    stop vendor.xiaomi.aidl.miwill
+
+# Stock property actions can explicitly start disabled services.
+on property:init.svc.minetd=running
+    stop minetd
+
+on property:init.svc.slad=running
+    stop slad
+
+on property:init.svc.sla-service-hal-2-0=running
+    stop sla-service-hal-2-0
+
+on property:init.svc.vendor.xiaomi.aidl.minet=running
+    stop vendor.xiaomi.aidl.minet
+
+on property:init.svc.vendor.xiaomi.aidl.miwill=running
+    stop vendor.xiaomi.aidl.miwill
+
 # The retained stock fstab mounts mi_ext directories over Lineage-owned
 # framework partitions. Remove every mi_ext-backed overlay before
 # PackageManager scans them, then detach the source partition so later stock
