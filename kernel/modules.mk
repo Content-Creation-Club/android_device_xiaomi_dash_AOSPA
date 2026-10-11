@@ -284,12 +284,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/perf-actuator.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/miicmpfilter.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xm_power.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/io_monitor.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/lb.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/mi_schedule.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qi.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/xr-qs.ko \
-    $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/metis.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66.user/net/bluetooth/bluetooth.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/board_temp.ko \
     $(DASH_KLEAF_OUT)/mgk_64_k66_customer_modules_install.user/bq25985_charger.ko \

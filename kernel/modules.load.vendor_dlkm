@@ -94,9 +94,6 @@ mtk-vcodec-enc-v2.ko
 jpeg-driver.ko
 cpufreq_sugov_ext.ko
 perf-actuator.ko
-mi_schedule.ko
-xr-qi.ko
-metis.ko
 scheduler.ko
 mtk_core_ctl.ko
 mtk_em.ko
@@ -235,6 +232,3 @@ nt38771_touch_dash.ko
 powersave.ko
 miicmpfilter.ko
 xm_power.ko
-io_monitor.ko
-lb.ko
-xr-qs.ko
