@@ -6,6 +6,7 @@ PRODUCT_PACKAGES += \
     MtkGbaService \
     dash-ims-appcompat \
     dash-ims-telephony-metrics \
+    init.dash-ims.rc \
     mediatek-common \
     mediatek-ims-base \
     libmtk_vt_wrapper \
