@@ -1,0 +1,5 @@
+# Copyright (C) 2026 YorokobiMaster
+# SPDX-License-Identifier: Apache-2.0
+
+# Run the shutdown IncFS cleanup with vold's existing mount permissions.
+domain_trans(init, toolbox_exec, vold)
