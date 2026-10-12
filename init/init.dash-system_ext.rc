@@ -1,6 +1,19 @@
 # Copyright (C) 2026 YorokobiMaster
 # SPDX-License-Identifier: Apache-2.0
 
+# system_ext is parsed before vendor. Keep the stock service's configuration
+# with the wakelock group required by its ChargerLogger thread; the later
+# non-override vendor definition is ignored. Override also permits its duplicate
+# AIDL interface declaration. The stock post-fs action still starts this service.
+service vendor.misys.common /vendor/bin/hypsys_vendor
+    override
+    class main
+    user system
+    group system root log cache everybody media_rw debuggerd wakelock
+    file /dev/kmsg r
+    interface aidl vendor.xiaomi.hardware.misys.common.IMiSysImpl/default
+    disabled
+
 # The retained stock fstab mounts mi_ext directories over Lineage-owned
 # framework partitions. Remove every mi_ext-backed overlay before
 # PackageManager scans them, then detach the source partition so later stock

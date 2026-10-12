@@ -2,11 +2,4 @@
 # SPDX-License-Identifier: Apache-2.0
 
 /(system_ext|system/system_ext)/bin/hw/dash-health  u:object_r:dash_health_exec:s0
-
-# Charging thresholds must survive ueventd restorecon: stock vendor_file_contexts
-# labels the whole battery dir sysfs_battery_supply, and every charger uevent
-# re-applies it, overriding the genfscon in genfs_contexts. This exact-path
-# entry wins on longest stem and makes the restorecon assign our label
-# instead, so dash_health keeps access across uevents.
-/sys/devices/platform/battery-manager/power_supply/battery/charge_control_start_threshold  u:object_r:sysfs_dash_charge:s0
-/sys/devices/platform/battery-manager/power_supply/battery/charge_control_end_threshold  u:object_r:sysfs_dash_charge:s0
+/data/misc/dash-health(/.*)?  u:object_r:dash_health_data_file:s0

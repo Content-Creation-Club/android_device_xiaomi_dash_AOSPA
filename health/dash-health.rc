@@ -7,13 +7,11 @@ service dash-health /system_ext/bin/hw/dash-health
     group system
 
 on post-fs-data
-    chown system system /sys/class/power_supply/battery/charge_control_start_threshold
-    chown system system /sys/class/power_supply/battery/charge_control_end_threshold
-    chmod 0660 /sys/class/power_supply/battery/charge_control_start_threshold
-    chmod 0660 /sys/class/power_supply/battery/charge_control_end_threshold
+    mkdir /data/misc/dash-health 0770 system system
+    restorecon_recursive /data/misc/dash-health
+    chown system system /sys/class/power_supply/battery/smart_chg
+    chmod 0660 /sys/class/power_supply/battery/smart_chg
 
 on property:sys.boot_completed=1
-    chown system system /sys/class/power_supply/battery/charge_control_start_threshold
-    chown system system /sys/class/power_supply/battery/charge_control_end_threshold
-    chmod 0660 /sys/class/power_supply/battery/charge_control_start_threshold
-    chmod 0660 /sys/class/power_supply/battery/charge_control_end_threshold
+    chown system system /sys/class/power_supply/battery/smart_chg
+    chmod 0660 /sys/class/power_supply/battery/smart_chg

@@ -4,7 +4,7 @@
 type dash_health, coredomain, domain;
 type dash_health_exec, system_file_type, exec_type, file_type;
 
-type sysfs_dash_charge, sysfs_type, fs_type;
+type dash_health_data_file, file_type, data_file_type, core_data_file_type;
 
 # sysfs_batteryinfo comes from AOSP system/sepolicy/public/file.te; a bare
 # redeclaration here is a duplicate-type error, unlike the dash_led.te pattern.
@@ -19,13 +19,11 @@ binder_call(dash_health, servicemanager)
 # NDK binder opens /sys/kernel/tracing/trace_marker on the first transaction.
 dontaudit dash_health self:capability { dac_override dac_read_search };
 
-# Native charging-limit thresholds are labeled by the genfscon in
-# genfs_contexts; everything else under power_supply stays off-limits.
-# Path traversal crosses battery-manager/power_supply (sysfs_batteryinfo)
-# and the battery dir itself (sysfs_battery_supply).
-allow dash_health sysfs_dash_charge:file rw_file_perms;
+# Keep smart_chg's vendor label so its existing MiCharge/thermal clients retain
+# access. The HAL's sole sysfs command path is the stock battery smart_chg node.
+allow dash_health sysfs_battery_supply:file { getattr open read write };
 allow dash_health sysfs_batteryinfo:dir search;
 allow dash_health sysfs_battery_supply:dir search;
 
-# dash-health.rc assigns the threshold nodes to system at boot completion.
-allow init sysfs_dash_charge:file setattr;
+allow dash_health dash_health_data_file:dir rw_dir_perms;
+allow dash_health dash_health_data_file:file create_file_perms;
