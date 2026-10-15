@@ -89,7 +89,7 @@ public final class DashBrightnessRampPolicy implements DeviceBrightnessRampPolic
         if (targetNit >= startNit || currentNit > startNit || currentNit < targetNit) {
             return Float.NaN;
         }
-        return finishRate(getDarkeningRate(currentNit, targetNit));
+        return finishRate(getDarkeningRate(currentNit));
     }
 
     private float getBrighteningRate(float startBrightness, float startNit, float currentNit,
@@ -125,7 +125,7 @@ public final class DashBrightnessRampPolicy implements DeviceBrightnessRampPolic
         return rate;
     }
 
-    private float getDarkeningRate(float currentNit, float targetNit) {
+    private float getDarkeningRate(float currentNit) {
         final boolean hbmConfigured = isUnitValue(mHbmTransitionPointBrightness);
         final float normalMaxBrightness = hbmConfigured ? mHbmTransitionPointBrightness : 1.0f;
         final float normalNit = toNits(normalMaxBrightness);
@@ -157,11 +157,9 @@ public final class DashBrightnessRampPolicy implements DeviceBrightnessRampPolic
             rate = rateAtNormal * normalMaxBrightness / normalNit;
         }
 
-        if (targetNit <= NIT_LEVEL && normalMaxBrightnessInt <= 0xfff) {
-            final float fastRate = NIT_LEVEL / 16383.0f;
-            if (currentNit <= NIT_LEVEL) {
-                return fastRate;
-            }
+        // getRate has already checked that targetNit <= currentNit.
+        if (currentNit <= NIT_LEVEL) {
+            return NIT_LEVEL / 16383.0f;
         }
         return rate;
     }
