@@ -1,0 +1,15 @@
+# Copyright (C) 2026 YorokobiMaster
+# SPDX-License-Identifier: Apache-2.0
+
+# The retained stock vendor policy owns these types. Keep bare declarations for
+# source-side vendor clients without adding attribute-based permissions.
+not_recovery(`
+type sysfs_battery_supply;
+type sysfs_usb_supply;
+')
+
+# Charging control reads and writes the stock battery and USB supply nodes.
+allow hal_lineage_health_default sysfs_battery_supply:dir search;
+allow hal_lineage_health_default sysfs_battery_supply:file { open read write append getattr lock map };
+allow hal_lineage_health_default sysfs_usb_supply:dir search;
+allow hal_lineage_health_default sysfs_usb_supply:file { open read write append getattr lock map };
