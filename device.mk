@@ -10,7 +10,6 @@ $(call inherit-product, $(DASH_HARDWARE_PATH)/dash.mk)
 # Device features
 $(call inherit-product, $(DEVICE_PATH)/fod/fod.mk)
 $(call inherit-product, $(DEVICE_PATH)/display/brightness/brightness.mk)
-$(call inherit-product, $(DEVICE_PATH)/display/livedisplay/livedisplay.mk)
 $(call inherit-product, $(DEVICE_PATH)/power/power.mk)
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
 $(call inherit-product, $(DEVICE_PATH)/face/face.mk)

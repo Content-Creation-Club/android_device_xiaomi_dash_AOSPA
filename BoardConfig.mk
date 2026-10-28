@@ -61,15 +61,17 @@ BOARD_VENDOR_DLKMIMAGE_EROFS_PCLUSTER_SIZE := 16384
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/system_ext/private
 
+<<<<<<< HEAD
 DASH_HARDWARE_PATH ?= hardware/xiaomi/dash
 include $(DASH_HARDWARE_PATH)/BoardConfig.mk
 
+=======
+include $(DEVICE_PATH)/display/brightness/BoardConfig.mk
+include $(DEVICE_PATH)/power/BoardConfig.mk
+>>>>>>> 6323f91 (dash: Remove Lineage-only components)
 include $(DEVICE_PATH)/fod/BoardConfig.mk
 include $(DEVICE_PATH)/power/BoardConfig.mk
 include $(DEVICE_PATH)/ims/BoardConfig.mk
-include $(DEVICE_PATH)/display/livedisplay/BoardConfig.mk
-
 # BoardConfig is loaded separately from product inheritance.
-ifeq ($(TARGET_PRODUCT),lineage_dash)
-include $(DEVICE_PATH)/BoardConfigLineage.mk
-endif
+include $(DEVICE_PATH)/health/BoardConfig.mk
+include vendor/sandai/mipush/BoardConfig.mk
