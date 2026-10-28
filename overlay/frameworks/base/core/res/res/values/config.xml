@@ -30,15 +30,9 @@
          through SystemUI's doze service. -->
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
 
-    <!-- Whether device supports double tap to wake -->
-
-    <!-- AOSP Screen attention, backed by dash's front-camera AOV pipeline. -->
-
-    <!-- DashFod arms the fingerprint extension only after Doze is visible. -->
-
-    <!-- Default the screen-off UDFPS switch on: a fresh flash should have
-         working AOD fingerprint out of the box. AmbientDisplayConfiguration
-         and the Settings toggle both resolve an unset secure key from this,
-         and DashFod falls back to it too. -->
+    <!-- The camera ring is not a charging indicator. -->
+    <integer name="config_notificationsBatteryLowARGB">0</integer>
+    <integer name="config_notificationsBatteryMediumARGB">0</integer>
+    <integer name="config_notificationsBatteryFullARGB">0</integer>
 
 </resources>
