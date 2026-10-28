@@ -1,0 +1,8 @@
+// Copyright (C) 2026 YorokobiMaster
+// SPDX-License-Identifier: Apache-2.0
+
+runtime_resource_overlay {
+    name: "DashApertureOverlay",
+    enabled: false,
+    product_specific: true,
+}

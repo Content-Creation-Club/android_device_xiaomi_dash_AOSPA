@@ -25,4 +25,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, device/xiaomi/dash/device.mk)
 $(call inherit-product, device/xiaomi/dash/health/health.mk)
 
+# NO APERTURE.
+PRODUCT_NO_CAMERA := true
+
 $(call inherit-product, device/xiaomi/dash/aospa/aospa-target.mk)

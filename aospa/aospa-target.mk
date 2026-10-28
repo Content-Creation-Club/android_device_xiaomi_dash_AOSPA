@@ -64,8 +64,10 @@ PRODUCT_SYSTEM_PROPERTIES += \
 $(call inherit-product, vendor/aospa/bootanimation/bootanimation.mk)
 
 # Camera
+ifneq ($(PRODUCT_NO_CAMERA),true)
 PRODUCT_PACKAGES += \
     Aperture
+endif
 
 # curl
 PRODUCT_PACKAGES += \
