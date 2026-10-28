@@ -12,7 +12,6 @@ $(call inherit-product, $(DEVICE_PATH)/fod/fod.mk)
 $(call inherit-product, $(DEVICE_PATH)/display/brightness/brightness.mk)
 $(call inherit-product, $(DEVICE_PATH)/power/power.mk)
 $(call inherit-product, $(DEVICE_PATH)/ims/ims.mk)
-$(call inherit-product, $(DEVICE_PATH)/face/face.mk)
 
 # Device-specific system_server startup list.
 $(call inherit-product, $(DEVICE_PATH)/device-services.mk)
