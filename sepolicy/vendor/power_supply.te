@@ -6,6 +6,8 @@
 not_recovery(`
 type sysfs_battery_supply;
 type sysfs_usb_supply;
+type vendor_sysfs_battery_supply;
+type vendor_sysfs_usb_supply;
 ')
 
 # Charging control reads and writes the stock battery and USB supply nodes.
