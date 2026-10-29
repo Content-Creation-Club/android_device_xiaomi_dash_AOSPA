@@ -44,20 +44,6 @@ PRODUCT_BUILD_RECOVERY_IMAGE := false
 PRODUCT_BUILD_SYSTEM_DLKM_IMAGE := false
 PRODUCT_BUILD_VBMETA_IMAGE := false
 
-# Recovery lives in the vendor_boot recovery ramdisk fragment. Retain the
-# MTK boot HAL's UFS boot-region handling;
-PRODUCT_PACKAGES += \
-    android.hardware.fastboot-service.example_recovery \
-    android.hardware.health-service.example_recovery \
-    fastbootd \
-    toolbox.recovery \
-    update_engine_sideload
-
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/recovery/init.recovery.mt6991.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.mt6991.rc \
-    $(DEVICE_PATH)/recovery/android.hardware.boot-service.mtk_recovery.rc:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/init/android.hardware.boot-service.mtk_recovery.rc \
-    $(DEVICE_PATH)/recovery/mtk-plpath-utils.rc:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/init/mtk-plpath-utils.rc
-
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/framework_compatibility_matrix.xml
 

@@ -33,14 +33,12 @@ TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 TARGET_COPY_OUT_ODM_DLKM := odm_dlkm
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 
 BOARD_USES_METADATA_PARTITION := true
 
-# Need time to experience Lineage Recovery.
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab.mt6991
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/recovery/sepolicy
-$(call soong_config_set,libinit,vendor_init_lib,libinit_recovery_fake_lock)
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Choose a preferred file system.
