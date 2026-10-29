@@ -26,6 +26,7 @@ $(call inherit-product, device/xiaomi/dash/device.mk)
 $(call inherit-product, device/xiaomi/dash/health/health.mk)
 
 PRODUCT_PACKAGES += DashFaceOverlay
+PRODUCT_PACKAGES += DashLineagePartsOverlay
 
 # NO APERTURE.
 PRODUCT_NO_CAMERA := true
