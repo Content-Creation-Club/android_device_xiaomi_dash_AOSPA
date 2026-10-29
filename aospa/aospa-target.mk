@@ -23,6 +23,7 @@ PRODUCT_SOURCE_ROOT_DIRS += -prebuilts/misc/protobuf_vendorcompat \
     -device/generic/trusty/microdroid \
     -device/qcom \
     -hardware/qcom \
+    -hardware/xiaomi/dash/uwu \
     -vendor/codeaurora \
     -vendor/qcom/common \
     -vendor/qcom/opensource \
