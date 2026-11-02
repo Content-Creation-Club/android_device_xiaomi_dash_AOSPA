@@ -70,4 +70,3 @@ include $(DEVICE_PATH)/ims/BoardConfig.mk
 
 # BoardConfig is loaded separately from product inheritance.
 include $(DEVICE_PATH)/health/BoardConfig.mk
-include vendor/sandai/mipush/BoardConfig.mk
